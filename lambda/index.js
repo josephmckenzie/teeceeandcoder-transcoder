@@ -76,7 +76,7 @@ exports.handler = function(event, context, callback){
     var path = require('path')
     var extension = path.extname(data.Contents[0].Key)  
     console.log(extension);
-    if( extension == '.avi' || extension == '.mp4' || extension == '.mov'){ 
+    if( extension == '.avi' || extension == '.AVI' || extension == '.mp4' || extension == '.MP4' || extension == '.mov' || extension == '.MOV'){ 
      console.log("you sent vaild format, so you will be allowed to stay and be transcoded");
      elasticTranscoder.createJob(elasticParams, function(error, data){
       if (error){
