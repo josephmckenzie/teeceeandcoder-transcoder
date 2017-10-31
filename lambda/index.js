@@ -21,7 +21,8 @@ exports.handler = function(event, context, callback){
 
     var key = event.Records[0].s3.object.key;
     console.log(key)
-     var sourceKey = decodeURIComponent(key.replace(/\s+/g, '+'));
+ 
+     var sourceKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
     // next we will want to remove the extension from the file name
     //Having changed my regexp expression I now can remove all the periods in a filename except the last one before the extension type
       var rogue_period_replacer = sourceKey.replace(/\.(?=.*\.)/g,'+');
