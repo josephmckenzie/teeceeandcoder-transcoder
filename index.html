@@ -13,8 +13,8 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
+    <link rel="apple-touch-icon" href="images/dog-paw.ico">
+<link rel="icon" type="image/png" href="images/dog-paw.ico">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
         body {
@@ -35,18 +35,15 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
-            <a class="navbar-brand" href="#">24 Hour Video</a>
+            <a class="navbar-brand" href="#">Teecee and Coder's Transcoder</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-
             <div class="navbar-form navbar-right">
 
                 <button id="user-profile" class="btn btn-default"><img id="profilepicture"/>
@@ -55,7 +52,6 @@
                 <button id="auth0-login" class="btn btn-success">Sign in</button>
                 <button id="auth0-logout" class="btn btn-success">Sign Out</button>
 
-
             </div>
         </div><!--/.navbar-collapse -->
     </div>
@@ -63,26 +59,59 @@
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
-    <div id="hero" class="container">
-        <img src="images/teeceeMMhat.jpg" class="teeceehat"/>
-        <h3>All Teecee and All Coder. All THE TIME. GUARANTEED or your money back</h3>
+	<div id="hero" class="container">
+		<img src="images/teeceeMMhat.jpg" style="width: 30rem;height: 30rem;">     
+		<p style="font-size:22px">All Teecee and All Coder. All THE TIME. GUARANTEED or your money back</p>
+		<p style="font-size:13px">* Guaranteed 100% manbun free, well unless Jon is taking or in the video and in that case if you don't like it, get over it.</p>
+		<p class="guarantee" style="font-size:12px">** There will also be Teecee and Coder's puppy videos too.</p>
+		<br><br><br><br>
+		<p class="creationreason" style="font-size: 12px;">
+			This service was created after hearing of all the demand for a streamlined service where people of all walks of life could come and have a place that they could get together and give me videos of the very wonderful dogs by the name of Teecee (my sweet baby girl), Coder (The awesome ass dog) and their puppies which as so very cute. So if you have a video that you would like to share of any of the aforementioned dogs please upload.
+		</p>
+	</div>
+</div>
 
-        <h5>* Guaranteed 100% manbun free, well unless Jon is taking or in the video and in that case if you don't like it, get over it.</h5>
-     <p class="guarantee">** There will also be Teecee and Coder's puppy videos too.</p>
-     <br><br><br>
-     <p class="creationreason" style="font-size: 12px;">
-     This service was created after hearing of all the demand for a streamlined service where people of all walks of life could come and have a place that they could get together and give me videos of the very wonderful dogs by the name of Teecee (my sweet baby girl), Coder (The awesome ass dog) and their puppies which as so very cute. So if you have a video that you would like to share of any of the aforementioned dogs please upload.
-     </p>
+<!-- Movie template. This is cloned, never shown directly -->
+<div id="video-template" class="col-sm-4 col">
+    <div class="video-card">
+        <div class="transcoding-indicator">
+            <object type="image/svg+xml" data="transcoding-indicator.svg">
+                Your browser does not support SVG
+            </object>
+        </div>
+        <video width="100%" height="100%">
+            <source type="video/mp4" />
+            Your browser does not support the video tag.
+     </video>
     </div>
 </div>
+<!-- / movie template -->
 
 <div class="container" id="video-list-container">
     <span id="upload-video-button" class="btn btn-info btn-file">
-          <span class="glyphicon glyphicon-plus"></span> <input id="upload" type="file" name="file">
-     
+			<span class="glyphicon glyphicon-plus"></span> 
+			<input id="upload" type="file" name="file">
     </span>
-<div><p class="videowarning">* All videos that do not contain Teecee or Coder or the puppies will be deleted promptly, and you will be banned for life.</p></div>
-    <div class="progress" id="upload-progress"><div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%"> <span class="sr-only">20% Complete</span> </div> </div>
+	<div>
+		<p class="videowarning">* All videos that do not contain Teecee, Coder or the puppies will be deleted promptly, and you will be banned for life.
+		</p>
+		<br>
+	</div>
+
+    <div class="progress" id="upload-progress">
+        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20"
+             aria-valuemin="0" aria-valuemax="100" style="width:20%"><span class="sr-only">20% Complete</span></div>
+    </div>
+
+    <object id="loading-indicator" type="image/svg+xml" data="loading-indicator.svg">
+        Your browser does not support SVG
+    </object>
+
+    <!-- Row of movies -->
+    <div id="video-list" class="row">
+
+    </div>
+
 </div> <!-- /container -->
 
 <!-- User profile modal -->
@@ -111,12 +140,14 @@
 
 <script src="js/vendor/bootstrap.min.js"></script>
 <script src="https://cdn.auth0.com/js/lock-8.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.0.4/firebase.js"></script>
 
 <script src="js/user-controller.js"></script>
+<script src="js/video-controller.js"></script>
 <script src="js/upload-controller.js"></script>
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
-
+<!--To DO !! We must track the amount of viewers that the site brings in.-->
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
     (function (b, o, i, l, e, r) {

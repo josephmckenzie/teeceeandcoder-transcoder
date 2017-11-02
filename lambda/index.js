@@ -13,8 +13,34 @@ var elasticTranscoder = new AWS.ElasticTranscoder({
     region: process.env.ELASTIC_TRANSCODER_REGION
 });
 var s3 = new AWS.S3();
+var firebase = require('firebase');
+
+firebase.initializeApp({
+  serviceAccount: process.env.SERVICE_ACCOUNT,
+  databaseURL: process.env.DATABASE_URL
+});
+
+function pushVideoEntryToFirebase(callback, key) {
+    console.log("Adding video entry to firebase at key:", key);
+
+    var database = firebase.database().ref();
+
+    // create a unique entry for this video in firebase
+    database.child('videos').child(key)
+        .set({
+            transcoding: true
+        })
+        .then(function () {
+            callback(null, "Video saved");
+        })
+        .catch(function (err) {
+            callback(err);
+        });
+}
+
 
 exports.handler = function(event, context, callback){
+     context.callbackWaitsForEmptyEventLoop = false;
     console.log('Welcome to Joes Super Cool Video Transcoder');
  //event is the video file and any associated file information from youruniqueandcoolname-video-upload bucket
     console.log('event: ' + JSON.stringify(event));
@@ -30,7 +56,7 @@ exports.handler = function(event, context, callback){
     // Having replaced all periods except for the very last one we can now remove the one for the extension as well so that we can have an output key which is the file name without an extension or non alphanumeric 
     var outputKey = rogue_period_replacer.split('.')[0];
     var extension = rogue_period_replacer.split('.')[1];
- 
+    var uniqueVideoKey = outputKey.split('/')[0];
  
     var elasticParams = {
      // Once again we want to use an environmental variable to ensure our secure account information is kept confidential
@@ -82,8 +108,10 @@ exports.handler = function(event, context, callback){
      elasticTranscoder.createJob(elasticParams, function(error, data){
       if (error){
        callback(error);
+       return;
       }
       console.log('elasticTranscoder callback data: ' + JSON.stringify(data));
+      pushVideoEntryToFirebase(callback, uniqueVideoKey);
      });
     } else {
      console.log("you sent invaild format, so you will be deleted");

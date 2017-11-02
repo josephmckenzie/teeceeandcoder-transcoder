@@ -1,7 +1,7 @@
 {
-  "name": "24-hour-video",
+  "name": "teecee-and-coders-transcoder",
   "version": "1.0.0",
-  "description": "The 24 Hour Video Website",
+  "description": "Teecee and Coder's Transcoder , A site where you can upload all you videos containg Teecee,Coder or their puppies. Thank you for any support in making this the next facebook but only containg my favorite dog ( (Teecee) dont tell Coder, I still love him a shit ton too) alive on earth.",
   "local-web-server": {
     "port": 8100,
     "forbid": "*.json"
@@ -10,9 +10,25 @@
     "start": "ws",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Peter Sbarski",
+  "author": "Joseph Mckenzie",
   "license": "BSD-2-Clause",
   "devDependencies": {
     "local-web-server": "^1.1.0"
-  }
+  },
+  "dependencies": {},
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephmckenzie/teeceeandcoder-transcoder.git"
+  },
+  "keywords": [
+    "teecee",
+    "coder",
+    "transcoder",
+    "teeceeandcoder"
+  ],
+  "bugs": {
+    "url": "https://github.com/josephmckenzie/teeceeandcoder-transcoder/issues"
+  },
+  "homepage": "https://github.com/josephmckenzie/teeceeandcoder-transcoder#readme"
 }
