@@ -1,3 +1,4 @@
+
 var userController = {
     data: {
         auth0Lock: null,
@@ -36,6 +37,7 @@ var userController = {
                 }
                 // Display user information
                 that.showUserAuthenticationDetails(profile);
+console.log(profile);
 
             });
         }
@@ -46,6 +48,7 @@ var userController = {
         $.ajaxSetup({
             'beforeSend': function (xhr) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('userToken'));
+                cors: true
             }
         });
     },
@@ -56,6 +59,7 @@ var userController = {
             this.uiElements.profileNameLabel.text(profile.nickname);
             this.uiElements.profileImage.attr('src', profile.picture);
             this.uiElements.uploadButton.css('display', 'inline-block');
+console.log(profile,"i am a profile");
         }
 
         this.uiElements.loginButton.toggle(!showAuthenticationElements);
@@ -69,6 +73,7 @@ var userController = {
             var params = {
                 authParams: {
                     scope: 'openid email user_metadata picture'
+
                 }
             };
 
@@ -83,6 +88,7 @@ var userController = {
                     that.configureAuthenticatedRequests();
 
                     that.showUserAuthenticationDetails(profile);
+
                 }
             });
         });
